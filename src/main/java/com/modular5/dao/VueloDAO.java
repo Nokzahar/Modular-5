@@ -16,32 +16,39 @@ public class VueloDAO {
 
     public List<Vuelo> listarTodos() {
         List<Vuelo> lista = new ArrayList<>();
-        String sql = "SELECT * FROM aerofly_db.vuelos";
+        String sql = "SELECT * FROM vuelos";
+
+        System.out.println("--- Iniciando listarTodos() ---"); // SOUT 1
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            try (Connection conn = DriverManager.getConnection(url, user, pass);
-                 PreparedStatement ps = conn.prepareStatement(sql);
-                 ResultSet rs = ps.executeQuery()) {
+            try (Connection conn = DriverManager.getConnection(url, user, pass)) {
+                System.out.println("✅ Conexión establecida con éxito a: " + url); // SOUT 2
 
-                while (rs.next()) {
-                    lista.add(new Vuelo(
-                            rs.getInt("id"),
-                            rs.getString("numero_vuelo"),
-                            rs.getString("origen"),
-                            rs.getString("destino"),
-                            rs.getString("hora")
-                    ));
+                try (PreparedStatement ps = conn.prepareStatement(sql);
+                     ResultSet rs = ps.executeQuery()) {
+
+                    int contador = 0;
+                    while (rs.next()) {
+                        contador++;
+                        lista.add(new Vuelo(
+                                rs.getInt("id"),
+                                rs.getString("numero_vuelo"),
+                                rs.getString("origen"),
+                                rs.getString("destino"),
+                                rs.getString("hora")
+                        ));
+                    }
+                    System.out.println("📊 Filas recuperadas de la DB: " + contador); // SOUT 3
                 }
             }
-        } catch (ClassNotFoundException e) {
-            System.err.println("Error: Driver no encontrado");
-            e.printStackTrace();
-        } catch (SQLException e) {
-            System.err.println("Error SQL al listar: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("❌ ERROR detectado en VueloDAO:"); // SOUT 4
             e.printStackTrace();
         }
+
+        System.out.println("📦 Tamaño final de la lista enviada al Servlet: " + lista.size()); // SOUT 5
         return lista;
     }
 }

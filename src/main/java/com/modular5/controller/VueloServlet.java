@@ -20,6 +20,7 @@ public class VueloServlet extends HttpServlet {
     public VueloServlet() throws SQLException {
     }
 
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -27,7 +28,7 @@ public class VueloServlet extends HttpServlet {
         List<Vuelo> listaVuelos = vueloDAO.listarTodos();
         System.out.println("Cantidad de vuelos encontrados: " + listaVuelos.size());
 
-        request.setAttribute("vuelosDisponibles", listaVuelos);
+        request.setAttribute("vuelos", listaVuelos);
 
         request.getRequestDispatcher("/listaVuelos.jsp").forward(request, response);
     }

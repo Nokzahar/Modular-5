@@ -4,7 +4,6 @@
 <body>
 <h2>Confirmar Reserva para el Vuelo #${param.id}</h2>
 
-<%-- Mostrar errores si existen --%>
 <p style="color:red;">${error}</p>
 
 <form action="reservar" method="post">

@@ -1,5 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%-- Asegúrate de que esta URI sea exactamente así para Tomcat 10 --%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <html>
 <head>
@@ -14,11 +13,9 @@
     <th>Origen</th>
     <th>Destino</th>
     <th>Hora</th>
-    <th>Acción</th>
   </tr>
   </thead>
   <tbody>
-  <%-- Se elimina jsp:useBean. JSTL accede directo al atributo del request --%>
   <c:forEach var="v" items="${vuelosDisponibles}">
     <tr>
       <td>${v.numeroVuelo}</td>

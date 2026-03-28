@@ -2,7 +2,7 @@ package com.modular5.model;
 
 public class Vuelo {
     private int id;
-    private String numeroVuelo; // Antes quizás tenías numero_vuelo
+    private String numeroVuelo; //
     private String origen;
     private String destino;
     private String hora;
